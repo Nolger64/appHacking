@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -24,13 +24,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   onNavigate,
   onLockApp,
 }) => {
+  const [isCardRevealed, setIsCardRevealed] = useState(false);
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Top Banner Profile */}
       <View style={styles.profileRow}>
-        <View>
+        <View style={styles.profileTextContainer}>
           <Text style={styles.greetingText}>Bienvenido de vuelta,</Text>
-          <Text style={styles.holderName}>{accountSummary.holderName}</Text>
+          <Text style={styles.holderName} numberOfLines={1}>{accountSummary.holderName}</Text>
         </View>
         <View style={styles.tierBadge}>
           <Ionicons name="sparkles" size={12} color={THEME.colors.warning} />
@@ -112,17 +114,37 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         </View>
         <View style={styles.chipRow}>
           <View style={styles.emvChip} />
-          <Ionicons name="eye-outline" size={16} color={THEME.colors.textMuted} />
+          <TouchableOpacity
+            style={styles.eyeButton}
+            onPress={() => setIsCardRevealed((prev) => !prev)}
+            activeOpacity={0.7}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            accessibilityLabel={isCardRevealed ? 'Ocultar números de la tarjeta' : 'Revelar números de la tarjeta'}
+          >
+            <Ionicons
+              name={isCardRevealed ? 'eye-off-outline' : 'eye-outline'}
+              size={18}
+              color={isCardRevealed ? THEME.colors.primary : THEME.colors.textMuted}
+            />
+          </TouchableOpacity>
         </View>
-        <Text style={styles.metalCardPan}>4532 •••• •••• 7741</Text>
+        <Text style={styles.metalCardPan}>
+          {isCardRevealed ? '4532 8920 1198 7741' : '4532 •••• •••• 7741'}
+        </Text>
         <View style={styles.metalCardFooter}>
           <View>
             <Text style={styles.metalCardHolderLabel}>TITULAR</Text>
             <Text style={styles.metalCardHolderName}>{accountSummary.holderName.toUpperCase()}</Text>
           </View>
-          <View>
-            <Text style={styles.metalCardHolderLabel}>VENCE</Text>
-            <Text style={styles.metalCardHolderName}>11/30</Text>
+          <View style={styles.metalCardMetaRow}>
+            <View>
+              <Text style={styles.metalCardHolderLabel}>VENCE</Text>
+              <Text style={styles.metalCardHolderName}>11/30</Text>
+            </View>
+            <View>
+              <Text style={styles.metalCardHolderLabel}>CVV</Text>
+              <Text style={styles.metalCardHolderName}>{isCardRevealed ? '839' : '•••'}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -160,7 +182,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 10,
     marginBottom: 20,
+  },
+  profileTextContainer: {
+    flex: 1,
+    minWidth: 140,
   },
   greetingText: {
     fontSize: 13,
@@ -173,6 +201,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   tierBadge: {
+    flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
@@ -193,22 +222,26 @@ const styles = StyleSheet.create({
     borderRadius: THEME.borderRadius.xl,
     borderWidth: 1,
     borderColor: THEME.colors.borderSubtle,
-    padding: 22,
+    padding: 18,
     marginBottom: 20,
   },
   cardHeaderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
     marginBottom: 8,
   },
   balanceLabel: {
     fontSize: 10,
     fontWeight: '700',
     color: THEME.colors.textMuted,
-    letterSpacing: 1,
+    letterSpacing: 0.8,
+    flexShrink: 1,
   },
   encryptedIndicator: {
+    flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
@@ -237,7 +270,8 @@ const styles = StyleSheet.create({
   },
   cryptoRow: {
     flexDirection: 'row',
-    gap: 10,
+    flexWrap: 'wrap',
+    gap: 8,
   },
   cryptoPill: {
     flexDirection: 'row',
@@ -256,16 +290,17 @@ const styles = StyleSheet.create({
   },
   actionsContainer: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 8,
     marginBottom: 24,
   },
   actionCard: {
     flex: 1,
+    minWidth: 0,
     backgroundColor: THEME.colors.surface,
     borderRadius: THEME.borderRadius.lg,
     borderWidth: 1,
     borderColor: THEME.colors.borderSubtle,
-    padding: 14,
+    padding: 10,
   },
   actionCardPrimary: {
     borderColor: 'rgba(0, 240, 168, 0.3)',
@@ -356,6 +391,16 @@ const styles = StyleSheet.create({
     color: '#E5E7EB',
     fontFamily: 'monospace',
   },
+  metalCardMetaRow: {
+    flexDirection: 'row',
+    gap: 16,
+  },
+  eyeButton: {
+    padding: 4,
+    borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   transactionsSection: {
     marginBottom: 20,
   },
@@ -363,14 +408,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
     marginBottom: 12,
   },
   sectionTitle: {
     fontSize: 17,
     fontWeight: '700',
     color: THEME.colors.textPrimary,
+    flexShrink: 1,
   },
   confidentialCountBadge: {
+    flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,

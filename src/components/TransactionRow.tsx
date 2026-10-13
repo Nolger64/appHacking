@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   },
   middleContainer: {
     flex: 1,
+    minWidth: 0,
     marginRight: 10,
   },
   titleRow: {
@@ -95,11 +96,13 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   title: {
+    flexShrink: 1,
     fontSize: 14,
     fontWeight: '600',
     color: THEME.colors.textPrimary,
   },
   confidentialPill: {
+    flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 3,
@@ -118,7 +121,9 @@ const styles = StyleSheet.create({
     color: THEME.colors.textSecondary,
   },
   amountContainer: {
+    flexShrink: 0,
     alignItems: 'flex-end',
+    marginLeft: 6,
   },
   amountText: {
     fontSize: 14,

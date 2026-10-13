@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Platform,
   StatusBar as RNStatusBar,
+  LogBox,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as Font from 'expo-font';
@@ -27,6 +28,9 @@ import { VaultScreen } from './src/screens/VaultScreen';
 import { SecurityAuditScreen } from './src/screens/SecurityAuditScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { THEME } from './src/constants/theme';
+
+// Ignore transient WebSocket / HMR reconnection warning on physical mobile devices
+LogBox.ignoreLogs(['Cannot connect to Expo CLI']);
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);

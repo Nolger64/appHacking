@@ -138,7 +138,7 @@ export const VaultItemCard: React.FC<VaultItemCardProps> = ({ item, onDelete }) 
             <Text style={styles.secretText}>
               {isRevealed
                 ? item.secretData.seedPhrase
-                : '•••••••••••••••••••••••••••••••••••••••••••••••••• (Toca el ojo para revelar)'}
+                : '••••••••••••••••••••••••••••••••••••••••••••••••••'}
             </Text>
           </View>
         )}
@@ -213,11 +213,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
     marginBottom: 10,
   },
   badgeRow: {
+    flex: 1,
+    minWidth: 140,
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
     gap: 8,
   },
   categoryBadge: {
@@ -250,6 +255,7 @@ const styles = StyleSheet.create({
     color: THEME.colors.primary,
   },
   topActions: {
+    flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,

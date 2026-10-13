@@ -69,6 +69,8 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
+    minWidth: 0,
+    marginRight: 10,
   },
   brandRow: {
     flexDirection: 'row',
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   actionsContainer: {
+    flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,

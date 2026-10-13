@@ -350,13 +350,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
     marginBottom: 14,
   },
   itemsCountText: {
     fontSize: 13,
     color: THEME.colors.textMuted,
+    flexShrink: 1,
   },
   addButton: {
+    flexShrink: 0,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,

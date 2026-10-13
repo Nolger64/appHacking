@@ -130,7 +130,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <View style={styles.iconBox}>
               <Ionicons name="keypad-outline" size={18} color={THEME.colors.primary} />
             </View>
-            <View>
+            <View style={styles.settingTextContainer}>
               <Text style={styles.settingTitle}>Cambiar Código PIN</Text>
               <Text style={styles.settingDesc}>Recifra la base de datos con una nueva clave</Text>
             </View>
@@ -143,7 +143,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <View style={styles.iconBox}>
               <Ionicons name="finger-print-outline" size={18} color={THEME.colors.secondary} />
             </View>
-            <View>
+            <View style={styles.settingTextContainer}>
               <Text style={styles.settingTitle}>Autenticación Biométrica</Text>
               <Text style={styles.settingDesc}>Face ID / Huella digital para desbloqueo</Text>
             </View>
@@ -166,7 +166,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <View style={[styles.iconBox, { backgroundColor: 'rgba(0, 240, 168, 0.1)' }]}>
               <Ionicons name="shield-outline" size={18} color={THEME.colors.primary} />
             </View>
-            <View style={{ flex: 1, paddingRight: 10 }}>
+            <View style={styles.settingTextContainer}>
               <Text style={styles.settingTitle}>Modo Estricto de Integridad del SO</Text>
               <Text style={styles.settingDesc}>
                 Verificación reforzada de binarios del sistema y arranque seguro
@@ -190,7 +190,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <View style={[styles.iconBox, { backgroundColor: 'rgba(255, 69, 101, 0.1)' }]}>
               <Ionicons name="refresh-outline" size={18} color={THEME.colors.danger} />
             </View>
-            <View>
+            <View style={styles.settingTextContainer}>
               <Text style={[styles.settingTitle, { color: THEME.colors.danger }]}>
                 Restablecer Configuración Predeterminada
               </Text>
@@ -303,6 +303,7 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     flex: 1,
+    minWidth: 0,
   },
   profileName: {
     fontSize: 16,
@@ -355,8 +356,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
+    minWidth: 0,
+    marginRight: 10,
+  },
+  settingTextContainer: {
+    flex: 1,
+    minWidth: 0,
   },
   iconBox: {
+    flexShrink: 0,
     width: 36,
     height: 36,
     borderRadius: 10,
@@ -369,11 +377,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: THEME.colors.textPrimary,
+    flexShrink: 1,
   },
   settingDesc: {
     fontSize: 11,
     color: THEME.colors.textMuted,
     marginTop: 2,
+    flexShrink: 1,
   },
   lockButton: {
     flexDirection: 'row',
